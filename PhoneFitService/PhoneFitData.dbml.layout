@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 13, 8.5" name="PhoneFitData">
+  <DataContextMoniker Name="/PhoneFitDataDataContext" />
+  <nestedChildShapes>
+    <classShape Id="f3e83542-a6d6-4033-9fd4-a8df29a37c8d" absoluteBounds="0.5, 0.5, 2, 1.3862939453125">
+      <DataClassMoniker Name="/PhoneFitDataDataContext/Role" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2ae9e8d0-6aa5-483d-a6ba-506b56b97bf4" absoluteBounds="0.51499999999999968, 0.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="22f1793a-db55-459a-b9ef-ae0c1e4da34b" absoluteBounds="3.25, 0.5, 2, 2.5401025390625">
+      <DataClassMoniker Name="/PhoneFitDataDataContext/UserAccount" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2c9b9f53-e946-49f6-907f-c06837fd80c2" absoluteBounds="3.2650000000000006, 0.96, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.5 : 1.19314697265625); (3.25 : 1.19314697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PhoneFitDataDataContext/Role/Role_UserAccount" />
+      <nodes>
+        <classShapeMoniker Id="f3e83542-a6d6-4033-9fd4-a8df29a37c8d" />
+        <classShapeMoniker Id="22f1793a-db55-459a-b9ef-ae0c1e4da34b" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="64cc1e70-3a3a-4124-91dd-12cf60480528" absoluteBounds="0.5, 2.5, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/PhoneFitDataDataContext/Brand" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ddca4f8c-746d-4ecc-bd03-87deaa4ecf1f" absoluteBounds="0.51499999999999968, 2.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e59c2ed5-afd2-413f-9b74-521638dda963" absoluteBounds="5.625, 2.75, 2, 2.5401025390625">
+      <DataClassMoniker Name="/PhoneFitDataDataContext/PhoneModel" />
+      <nestedChildShapes>
+        <elementListCompartment Id="87498566-caf1-4e68-9911-7aad08c0204d" absoluteBounds="5.64, 3.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.5 : 3.27005126953125); (5.13541666666667 : 3.27005126953125 : JumpStart); (5.30208333333333 : 3.27005126953125 : JumpEnd); (5.625 : 3.27005126953125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PhoneFitDataDataContext/Brand/Brand_PhoneModel" />
+      <nodes>
+        <classShapeMoniker Id="64cc1e70-3a3a-4124-91dd-12cf60480528" />
+        <classShapeMoniker Id="e59c2ed5-afd2-413f-9b74-521638dda963" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="3c1436b6-ed19-4b84-a67c-3ed494ae7dc3" absoluteBounds="8.125, 2.875, 2, 2.5401025390625">
+      <DataClassMoniker Name="/PhoneFitDataDataContext/PhoneVariant" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ef5f9fbe-48cf-40c6-8769-29791da4730c" absoluteBounds="8.14, 3.335, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.625 : 4.08255126953125); (8.125 : 4.08255126953125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PhoneFitDataDataContext/PhoneModel/PhoneModel_PhoneVariant" />
+      <nodes>
+        <classShapeMoniker Id="e59c2ed5-afd2-413f-9b74-521638dda963" />
+        <classShapeMoniker Id="3c1436b6-ed19-4b84-a67c-3ed494ae7dc3" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="aa0a6886-041f-4872-ac25-ca330ee90ecb" absoluteBounds="3.125, 3.5, 2, 3.3093082682291666">
+      <DataClassMoniker Name="/PhoneFitDataDataContext/PhoneSpecification" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cf56b819-c291-42c2-a3b4-38898653bee7" absoluteBounds="3.1399999999999997, 3.96, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.625 : 4.39505126953125); (5.30208333333333 : 4.39505126953125 : JumpStart); (5.13541666666667 : 4.39505126953125 : JumpEnd); (5.125 : 4.39505126953125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PhoneFitDataDataContext/PhoneModel/PhoneModel_PhoneSpecification" />
+      <nodes>
+        <classShapeMoniker Id="e59c2ed5-afd2-413f-9b74-521638dda963" />
+        <classShapeMoniker Id="aa0a6886-041f-4872-ac25-ca330ee90ecb" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="a8971971-21c7-4218-81f5-4c37e3f2fb33" absoluteBounds="5.875, 0.5, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/PhoneFitDataDataContext/Cart" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0a80a462-3839-49c7-939b-eecfe81683a0" absoluteBounds="5.89, 0.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.25 : 1.28929768880208); (5.875 : 1.28929768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PhoneFitDataDataContext/UserAccount/UserAccount_Cart" />
+      <nodes>
+        <classShapeMoniker Id="22f1793a-db55-459a-b9ef-ae0c1e4da34b" />
+        <classShapeMoniker Id="a8971971-21c7-4218-81f5-4c37e3f2fb33" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="8222d69f-1fd5-444d-9ed5-abd314efb57e" absoluteBounds="8.75, 0.5, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/PhoneFitDataDataContext/CartItem" />
+      <nestedChildShapes>
+        <elementListCompartment Id="fa8e680d-d303-48f3-9066-950def1bdc00" absoluteBounds="8.765, 0.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.875 : 1.28929768880208); (8.75 : 1.28929768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PhoneFitDataDataContext/Cart/Cart_CartItem" />
+      <nodes>
+        <classShapeMoniker Id="a8971971-21c7-4218-81f5-4c37e3f2fb33" />
+        <classShapeMoniker Id="8222d69f-1fd5-444d-9ed5-abd314efb57e" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(9.4375 : 2.875); (9.4375 : 2.27089680989583)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PhoneFitDataDataContext/PhoneVariant/PhoneVariant_CartItem" />
+      <nodes>
+        <classShapeMoniker Id="3c1436b6-ed19-4b84-a67c-3ed494ae7dc3" />
+        <classShapeMoniker Id="8222d69f-1fd5-444d-9ed5-abd314efb57e" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="c49e617c-55cd-4e72-b0e2-c9815a2c414c" absoluteBounds="8.125, 5.875, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/PhoneFitDataDataContext/OrderItem" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9d3d239e-70bc-4a36-9f43-9d6afa2dfa84" absoluteBounds="8.14, 6.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(9.125 : 5.4151025390625); (9.125 : 5.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PhoneFitDataDataContext/PhoneVariant/PhoneVariant_OrderItem" />
+      <nodes>
+        <classShapeMoniker Id="3c1436b6-ed19-4b84-a67c-3ed494ae7dc3" />
+        <classShapeMoniker Id="c49e617c-55cd-4e72-b0e2-c9815a2c414c" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="8134d006-36e3-4b91-9ac2-7adcdef1c79e" absoluteBounds="5.625, 5.625, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/PhoneFitDataDataContext/StockMovement" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0981ca29-54ee-4416-90d5-fac2c14e08f5" absoluteBounds="5.64, 6.085, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.21875 : 3.0401025390625); (5.21875 : 7.32615397135417); (5.625 : 7.32615397135417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PhoneFitDataDataContext/UserAccount/UserAccount_StockMovement" />
+      <nodes>
+        <classShapeMoniker Id="22f1793a-db55-459a-b9ef-ae0c1e4da34b" />
+        <classShapeMoniker Id="8134d006-36e3-4b91-9ac2-7adcdef1c79e" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.125 : 5.4151025390625); (7.625 : 5.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PhoneFitDataDataContext/PhoneVariant/PhoneVariant_StockMovement" />
+      <nodes>
+        <classShapeMoniker Id="3c1436b6-ed19-4b84-a67c-3ed494ae7dc3" />
+        <classShapeMoniker Id="8134d006-36e3-4b91-9ac2-7adcdef1c79e" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="4ff9c81a-ceb6-4d24-9d0e-75a83aaf59f6" absoluteBounds="10.75, 3, 2, 2.5401025390625">
+      <DataClassMoniker Name="/PhoneFitDataDataContext/CustomerOrder" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4ed6c0f9-ab6c-49d1-be35-0a1785924707" absoluteBounds="10.765, 3.46, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(11.75 : 5.5401025390625); (11.75 : 6.76044840494792); (10.125 : 6.76044840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PhoneFitDataDataContext/CustomerOrder/CustomerOrder_OrderItem" />
+      <nodes>
+        <classShapeMoniker Id="4ff9c81a-ceb6-4d24-9d0e-75a83aaf59f6" />
+        <classShapeMoniker Id="c49e617c-55cd-4e72-b0e2-c9815a2c414c" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.25 : 2.51044840494792); (9.35416666666667 : 2.51044840494792 : JumpStart); (9.52083333333333 : 2.51044840494792 : JumpEnd); (11.78125 : 2.51044840494792); (11.78125 : 3)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PhoneFitDataDataContext/UserAccount/UserAccount_CustomerOrder" />
+      <nodes>
+        <classShapeMoniker Id="22f1793a-db55-459a-b9ef-ae0c1e4da34b" />
+        <classShapeMoniker Id="4ff9c81a-ceb6-4d24-9d0e-75a83aaf59f6" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

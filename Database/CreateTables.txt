@@ -1,0 +1,201 @@
+IF DB_ID('PhoneFitDB') IS NULL
+    CREATE DATABASE PhoneFitDB;
+GO
+USE PhoneFitDB;
+GO
+
+CREATE TABLE [Role] (
+    RoleID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    RoleName VARCHAR(50) UNIQUE NOT NULL,
+    RoleDescription VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE UserAccount (
+    UserID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    RoleID INT NOT NULL,
+    UserEmail VARCHAR(100) UNIQUE NOT NULL,
+    UserPasswordHash VARCHAR(255) NOT NULL,
+    UserFirstName VARCHAR(100) NOT NULL,
+    UserSurname VARCHAR(100) NOT NULL,
+    UserPhoneNumber VARCHAR(20),
+    UserIsActive BIT NOT NULL DEFAULT 1,
+    UserAccountCreated DATETIME NOT NULL DEFAULT GETDATE(),
+    FOREIGN KEY (RoleID) REFERENCES [Role](RoleID)
+);
+
+CREATE TABLE Brand (
+    BrandID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    BrandName VARCHAR(100) UNIQUE NOT NULL,
+    BrandDescription VARCHAR(500),
+    BrandIsActive BIT NOT NULL DEFAULT 1
+);
+
+CREATE TABLE PhoneModel (
+    PhoneModelID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    BrandID INT NOT NULL,
+    ModelName VARCHAR(150) NOT NULL,
+    OperatingSystem VARCHAR(50) NOT NULL,
+    ReleaseYear INT,
+    [Description] VARCHAR(MAX) NOT NULL,
+    ImagePath VARCHAR(MAX) NOT NULL,
+    IsActive BIT NOT NULL DEFAULT 1,
+    DateAdded DATETIME NOT NULL DEFAULT GETDATE(),
+    UNIQUE (BrandID, ModelName),
+    FOREIGN KEY (BrandID) REFERENCES Brand(BrandID),
+    CHECK (ReleaseYear IS NULL OR ReleaseYear BETWEEN 1990 AND 2030)
+);
+
+CREATE TABLE PhoneVariant (
+    VariantID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    PhoneModelID INT NOT NULL,
+    RAMGB INT NOT NULL,
+    StorageGB INT NOT NULL,
+    Colour VARCHAR(50) NOT NULL,
+    Price DECIMAL(12,2) NOT NULL,
+    StockQuantity INT NOT NULL DEFAULT 0,
+    LowStockLevel INT NOT NULL DEFAULT 5,
+    IsActive BIT NOT NULL DEFAULT 1,
+    UNIQUE (PhoneModelID, RAMGB, StorageGB, Colour),
+    FOREIGN KEY (PhoneModelID) REFERENCES PhoneModel(PhoneModelID),
+    CHECK (RAMGB > 0), CHECK (StorageGB > 0), CHECK (Price >= 0),
+    CHECK (StockQuantity >= 0), CHECK (LowStockLevel >= 0)
+);
+
+CREATE TABLE PhoneSpecification (
+    SpecificationID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    PhoneModelID INT UNIQUE NOT NULL,
+    Processor VARCHAR(150) NOT NULL,
+    ScreenSize DECIMAL(4,2),
+    ScreenType VARCHAR(50) NOT NULL,
+    RefreshRate INT,
+    BatteryCapacity INT,
+    RearCameraMP DECIMAL(6,2),
+    FrontCameraMP DECIMAL(6,2),
+    Supports5G BIT NOT NULL DEFAULT 0,
+    DualSIM BIT NOT NULL DEFAULT 0,
+    ExpandableStorage BIT NOT NULL DEFAULT 0,
+    WaterResistance VARCHAR(30),
+    FOREIGN KEY (PhoneModelID) REFERENCES PhoneModel(PhoneModelID),
+    CHECK (ScreenSize IS NULL OR ScreenSize > 0),
+    CHECK (RefreshRate IS NULL OR RefreshRate > 0),
+    CHECK (BatteryCapacity IS NULL OR BatteryCapacity > 0),
+    CHECK (RearCameraMP IS NULL OR RearCameraMP > 0),
+    CHECK (FrontCameraMP IS NULL OR FrontCameraMP > 0)
+);
+
+CREATE TABLE Cart (
+    CartID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    UserID INT NOT NULL,
+    DateCreated DATETIME NOT NULL DEFAULT GETDATE(),
+    IsActive BIT NOT NULL DEFAULT 1,
+    FOREIGN KEY (UserID) REFERENCES UserAccount(UserID)
+);
+
+CREATE TABLE CartItem (
+    CartItemID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    CartID INT NOT NULL,
+    VariantID INT NOT NULL,
+    Quantity INT NOT NULL DEFAULT 1,
+    DateAdded DATETIME NOT NULL DEFAULT GETDATE(),
+    UNIQUE (CartID, VariantID),
+    FOREIGN KEY (CartID) REFERENCES Cart(CartID),
+    FOREIGN KEY (VariantID) REFERENCES PhoneVariant(VariantID),
+    CHECK (Quantity > 0)
+);
+
+CREATE TABLE CustomerOrder (
+    OrderID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    UserID INT NOT NULL,
+    OrderDate DATETIME NOT NULL DEFAULT GETDATE(),
+    Subtotal DECIMAL(12,2) NOT NULL DEFAULT 0,
+    DiscountAmount DECIMAL(12,2) NOT NULL DEFAULT 0,
+    ShippingAmount DECIMAL(12,2) NOT NULL DEFAULT 0,
+    VATAmount DECIMAL(12,2) NOT NULL DEFAULT 0,
+    TotalAmount DECIMAL(12,2) NOT NULL,
+    OrderStatus VARCHAR(20) NOT NULL DEFAULT 'Received',
+    FOREIGN KEY (UserID) REFERENCES UserAccount(UserID),
+    CHECK (Subtotal >= 0), CHECK (DiscountAmount >= 0),
+    CHECK (ShippingAmount >= 0), CHECK (VATAmount >= 0),
+    CHECK (TotalAmount >= 0),
+    CHECK (OrderStatus IN ('Received','Processing','Completed','Cancelled'))
+);
+
+CREATE TABLE OrderItem (
+    OrderItemID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    OrderID INT NOT NULL,
+    VariantID INT NOT NULL,
+    Quantity INT NOT NULL,
+    UnitPrice DECIMAL(12,2) NOT NULL,
+    UNIQUE (OrderID, VariantID),
+    FOREIGN KEY (OrderID) REFERENCES CustomerOrder(OrderID),
+    FOREIGN KEY (VariantID) REFERENCES PhoneVariant(VariantID),
+    CHECK (Quantity > 0), CHECK (UnitPrice >= 0)
+);
+
+CREATE TABLE StockMovement (
+    StockMovementID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    VariantID INT NOT NULL,
+    ChangedByUserID INT NOT NULL,
+    MovementType VARCHAR(20) NOT NULL,
+    QuantityChange INT NOT NULL,
+    MovementDate DATETIME NOT NULL DEFAULT GETDATE(),
+    Notes VARCHAR(255),
+    FOREIGN KEY (VariantID) REFERENCES PhoneVariant(VariantID),
+    FOREIGN KEY (ChangedByUserID) REFERENCES UserAccount(UserID),
+    CHECK (MovementType IN ('StockIn','Sale','Correction','Return')),
+    CHECK (QuantityChange <> 0)
+);
+
+-- Retained from the submitted database design even though the optional
+-- recommendation feature is not exposed in the final website.
+CREATE TABLE UseCategory (
+    UseCategoryID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    CategoryName VARCHAR(50) UNIQUE NOT NULL,
+    [Description] VARCHAR(MAX) NOT NULL
+);
+
+CREATE TABLE PhoneSuitability (
+    SuitabilityID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    PhoneModelID INT NOT NULL,
+    UseCategoryID INT NOT NULL,
+    SuitabilityScore INT NOT NULL,
+    Explanation VARCHAR(MAX) NOT NULL,
+    UNIQUE (PhoneModelID, UseCategoryID),
+    FOREIGN KEY (PhoneModelID) REFERENCES PhoneModel(PhoneModelID),
+    FOREIGN KEY (UseCategoryID) REFERENCES UseCategory(UseCategoryID),
+    CHECK (SuitabilityScore BETWEEN 1 AND 10)
+);
+
+CREATE TABLE RecommendationAttempt (
+    AttemptID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    UserID INT NOT NULL,
+    MaximumBudget DECIMAL(12,2) NOT NULL,
+    PreferredOS VARCHAR(30),
+    MinimumStorageGB INT NOT NULL DEFAULT 0,
+    BatteryPriority INT NOT NULL DEFAULT 0,
+    CameraPriority INT NOT NULL DEFAULT 0,
+    GamingPriority INT NOT NULL DEFAULT 0,
+    BusinessPriority INT NOT NULL DEFAULT 0,
+    EverydayUsePriority INT NOT NULL DEFAULT 0,
+    AttemptDate DATETIME NOT NULL DEFAULT GETDATE(),
+    FOREIGN KEY (UserID) REFERENCES UserAccount(UserID),
+    CHECK (MaximumBudget >= 0), CHECK (MinimumStorageGB >= 0),
+    CHECK (BatteryPriority BETWEEN 0 AND 5), CHECK (CameraPriority BETWEEN 0 AND 5),
+    CHECK (GamingPriority BETWEEN 0 AND 5), CHECK (BusinessPriority BETWEEN 0 AND 5),
+    CHECK (EverydayUsePriority BETWEEN 0 AND 5)
+);
+
+CREATE TABLE RecommendationResult (
+    ResultID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    AttemptID INT NOT NULL,
+    PhoneModelID INT NOT NULL,
+    FitScore DECIMAL(5,2) NOT NULL,
+    RankPosition INT NOT NULL,
+    Explanation VARCHAR(MAX) NOT NULL,
+    UNIQUE (AttemptID, PhoneModelID),
+    UNIQUE (AttemptID, RankPosition),
+    FOREIGN KEY (AttemptID) REFERENCES RecommendationAttempt(AttemptID),
+    FOREIGN KEY (PhoneModelID) REFERENCES PhoneModel(PhoneModelID),
+    CHECK (FitScore BETWEEN 0 AND 100), CHECK (RankPosition > 0)
+);
+GO

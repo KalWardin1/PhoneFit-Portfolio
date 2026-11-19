@@ -1,0 +1,2719 @@
+USE PhoneFitDB;
+GO
+
+INSERT INTO [Role](RoleName, RoleDescription)
+VALUES
+('Customer',
+ 'Browses smartphones, receives recommendations, manages a cart and places orders.'),
+('Manager', 'Manages users, smartphone products, prices, stock, orders and business reports.');
+
+INSERT INTO UseCategory(CategoryName, [Description])
+VALUES
+('Studying', 'Suitable for research, communication, learning applications and general student use.'),
+('Photography', 'Suitable for customers who prioritise camera capability and image storage.'),
+('Gaming', 'Suitable for customers who require strong performance, sufficient RAM and responsive displays.'),
+('Business', 'Suitable for communication, productivity and professional applications.'),
+('Everyday Use', 'Suitable for communication, social media and general applications.'),
+('Long Battery Life', 'Suitable for customers who prioritise longer use between charges.');
+
+USE PhoneFitDB;
+GO
+INSERT INTO Brand(BrandName, BrandDescription)
+VALUES
+('Huawei', 'Huawei is a leading global technology company specializing in telecommunications and consumer electronics, known for its innovation and extensive market reach.'),
+('OnePlus', 'OnePlus is a consumer technology brand known for Android smartphones that combine strong performance, premium design and fast charging.'),
+('Sony', 'Sony is a global technology and entertainment company known for electronics, cameras, gaming products and Xperia smartphones.'),
+('Realme', 'Realme is a consumer electronics brand known for affordable smartphones, smart devices and performance-focused mobile technology.'),
+('Tecno', 'Tecno is a consumer electronics brand known for affordable smartphones, mobile devices and technology designed for emerging markets.'),
+('Samsung', 'Samsung is a global technology brand known for innovation, quality, and a customer-centric approach, with a mission to “Inspire the World, Create the Future.'),
+('Apple', 'Apple Inc. is an American multinational technology company known for its innovative consumer electronics, software, and online services'),
+('Xiaomi', 'Xiaomi is a Chinese multinational technology company known for smartphones, smart devices, and a connected IoT ecosystem.'),
+('HONOR', 'HONOR is a Chinese consumer electronics company that specializes in smartphones, tablet computers, wearable devices, and mobile device software'),
+('OPPO', 'Oppo is a Chinese consumer electronics and technology company known for its smartphones, smart devices, and audio products, with a strong global presence and innovative designs.');
+
+
+/* =========================================================
+   GALAXY A56 5G
+   ========================================================= */
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+	(SELECT BrandID
+	 FROM Brand
+	 WHERE BrandName = 'Samsung'
+	 ),
+	 'Galaxy A56 5G', 'Android', 2025, 'A mid-range 5G smartphone with a large AMOLED display, strong battery capacity and a versatile camera system.', 
+	  'https://media.takealot.com/covers_images/a0054748da3d4bcc921b34ae89d3d2e7/s-zoom.file');
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+	(SELECT PhoneModelID 
+	 FROM PhoneModel
+	 WHERE ModelName = 'Galaxy A56 5G'
+	 ),
+	 8, 256, 'Awesome Graphite', 12999.00, 10, 5);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+	(SELECT PhoneModelID 
+	 FROM PhoneModel
+	 WHERE ModelName = 'Galaxy A56 5G'
+	 ),
+	 'Samsung Exynos 1580', 6.70, 'Super AMOLED', 120, 5000, 50.00, 12.00, 1, 1, 0, 'IP67');
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+
+--| Score | Classification     | Fixed explanation                                                       |
+--| ----: | ------------------ | ----------------------------------------------------------------------- |
+--|     1 | Extremely Poor Fit | This smartphone is not suitable for this purpose.                       |
+--|     2 | Very Poor Fit      | This smartphone has very limited suitability for this purpose.          |
+--|     3 | Poor Fit           | This smartphone can perform only basic tasks for this purpose.          |
+--|     4 | Limited Fit        | This smartphone can support this purpose but has important limitations. |
+--|     5 | Average Fit        | This smartphone provides an average experience for this purpose.        |
+--|     6 | Acceptable Fit     | This smartphone is suitable for ordinary use for this purpose.          |
+--|     7 | Good Fit           | This smartphone is well suited to this purpose.                         |
+--|     8 | Very Good Fit      | This smartphone is very well suited to this purpose.                    |
+--|     9 | Excellent Fit      | This smartphone is highly suited to this purpose.                       |
+--|    10 | Exceptional Fit    | This smartphone is one of the strongest options for this purpose.       |
+
+VALUES
+(
+	(SELECT PhoneModelID 
+	 FROM PhoneModel
+	 WHERE ModelName = 'Galaxy A56 5G'
+	 ),
+	(SELECT UseCategoryID
+	 FROM UseCategory
+	 WHERE CategoryName = 'Studying'
+	 ),
+	 9, 'This smartphone is highly suited to this purpose.'),
+(
+	(SELECT PhoneModelID 
+	 FROM PhoneModel
+	 WHERE ModelName = 'Galaxy A56 5G'
+	 ),
+	(SELECT UseCategoryID
+	 FROM UseCategory
+	 WHERE CategoryName = 'Photography'
+	 ),
+	 8, 'This smartphone is very well suited to this purpose.'),
+(
+	(SELECT PhoneModelID 
+	 FROM PhoneModel
+	 WHERE ModelName = 'Galaxy A56 5G'
+	 ),
+	(SELECT UseCategoryID
+	 FROM UseCategory
+	 WHERE CategoryName = 'Gaming'
+	 ),
+	 8, 'This smartphone is very well suited to this purpose.'),
+(
+	(SELECT PhoneModelID 
+	 FROM PhoneModel
+	 WHERE ModelName = 'Galaxy A56 5G'
+	 ),
+	(SELECT UseCategoryID
+	 FROM UseCategory
+	 WHERE CategoryName = 'Business'
+	 ),
+	 8, 'This smartphone is very well suited to this purpose.'),
+(
+	(SELECT PhoneModelID 
+	 FROM PhoneModel
+	 WHERE ModelName = 'Galaxy A56 5G'
+	 ),
+	(SELECT UseCategoryID
+	 FROM UseCategory
+	 WHERE CategoryName = 'Everyday Use'
+	 ),
+	 9, 'This smartphone is highly suited to this purpose.'),
+(
+	(SELECT PhoneModelID 
+	 FROM PhoneModel
+	 WHERE ModelName = 'Galaxy A56 5G'
+	 ),
+	(SELECT UseCategoryID
+	 FROM UseCategory
+	 WHERE CategoryName = 'Long Battery Life'
+	 ),
+	 8, 'This smartphone is very well suited to this purpose.');
+
+     USE PhoneFitDB;
+        GO
+
+        INSERT INTO PhoneVariant
+        (
+            PhoneModelID,
+            RAMGB,
+            StorageGB,
+            Colour,
+            Price,
+            StockQuantity,
+            LowStockLevel
+        )
+        VALUES
+        (
+            (SELECT PhoneModelID
+                FROM PhoneModel
+                WHERE ModelName = 'Galaxy A56 5G'),
+
+            8,
+            128,
+            'Awesome Graphite',
+            11999.00,
+            8,
+            5
+        );
+        GO
+
+
+/* =========================================================
+   APPLE IPHONE 16
+   ========================================================= */
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'Apple'
+    ),
+    'iPhone 16',
+    'iOS', 2024, 'A premium smartphone with a powerful processor, high-quality camera system and a bright OLED display.',
+    'https://www.tradeinn.com/f/14141/141410983/apple-iphone-16-pro-128gb-6.3.webp'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity,LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'iPhone 16'
+    ),
+    8, 128, 'Black', 16299.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'iPhone 16'
+    ),
+    'Apple A18', 6.10, 'Super Retina XDR OLED', 60, 3561, 48.00, 12.00, 1, 1, 0, 'IP68'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'iPhone 16'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Studying'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'iPhone 16'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Photography'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'iPhone 16'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Gaming'
+    ),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'iPhone 16'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Business'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'iPhone 16'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Everyday Use'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'iPhone 16'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Long Battery Life'
+    ),
+    7, 'This smartphone is well suited to this purpose.'
+);
+
+/* =========================================================
+   XIAOMI REDMI NOTE 15
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'Xiaomi'
+    ),
+    'REDMI Note 15', 'Android', 2026, 'An affordable smartphone with a large AMOLED display, long-lasting battery and high-resolution main camera.', 
+    'https://www.trendmobil.cz/image/cache/catalog/xiaomi/xiaomi%20new/xia%20note%2015%204g%20blk-900x900.jpg'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'REDMI Note 15'
+    ),
+    8, 256, 'Black', 5199.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'REDMI Note 15'
+    ),
+    'MediaTek Helio G100-Ultra', 6.77, 'AMOLED', 120, 6000, 108.00, 20.00, 0, 1, 1, 'IP64'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'REDMI Note 15'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Studying'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'REDMI Note 15'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Photography'
+    ),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'REDMI Note 15'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Gaming'
+    ),
+    7, 'This smartphone is well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'REDMI Note 15'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Business'
+    ),
+    7, 'This smartphone is well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'REDMI Note 15'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Everyday Use'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'REDMI Note 15'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Long Battery Life'
+    ),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+);
+
+/* =========================================================
+   HONOR X6C
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'HONOR'
+    ),
+    'HONOR X6c', 'Android', 2025, 'An affordable smartphone with a smooth display, large battery, practical camera system and durable everyday design.', 
+    'https://mundotek.com.ec/wp-content/uploads/2025/06/x6c.webp'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR X6c'
+    ),
+    6, 128, 'Ocean Cyan', 2799.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR X6c'
+    ),
+    'MediaTek Helio G81 Ultra', 6.61, 'TFT LCD', 120, 5300, 50.00, 5.00, 0, 1, 0, 'IP64'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR X6c'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Studying'
+    ),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR X6c'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Photography'
+    ),
+    6, 'This smartphone is suitable for ordinary use for this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR X6c'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Gaming'
+    ),
+    6, 'This smartphone is suitable for ordinary use for this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR X6c'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Business'
+    ),
+    7, 'This smartphone is well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR X6c'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Everyday Use'
+    ),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR X6c'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Long Battery Life'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+);
+
+/* =========================================================
+   OPPO A6 4G
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'OPPO'
+    ),
+    'OPPO A6 4G', 'Android', 2026, 'A durable everyday smartphone with a large battery, smooth display, expandable storage and strong water resistance.', 
+    'https://pricedaan.pk/wp-content/uploads/2026/06/Oppo-A6-Pro-1024x536.webp'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'OPPO A6 4G'
+    ),
+    8, 256, 'Sapphire Blue', 6999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'OPPO A6 4G'
+    ),
+    'Qualcomm Snapdragon 685', 6.75, 'LCD', 120, 7000, 50.00, 8.00, 0, 1, 1, 'IP69'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'OPPO A6 4G'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Studying'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'OPPO A6 4G'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Photography'
+    ),
+    7, 'This smartphone is well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'OPPO A6 4G'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Gaming'
+    ),
+    7, 'This smartphone is well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'OPPO A6 4G'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Business'
+    ),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'OPPO A6 4G'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Everyday Use'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'OPPO A6 4G'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Long Battery Life'
+    ),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+);
+
+USE PhoneFitDB;
+GO
+/* =========================================================
+   SAMSUNG GALAXY A27
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'Samsung'
+    ),
+    'Samsung Galaxy A27', 'Android', 2026, 'A balanced 5G smartphone with a smooth Super AMOLED display, reliable performance, capable cameras and expandable storage.',
+    'https://tse3.mm.bing.net/th/id/OIP.CQ6a4NTdcC7fB0I29yHxTwHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy A27'
+    ),
+    6, 128, 'Black', 6999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy A27'
+    ),
+    'Qualcomm Snapdragon 6 Gen 3', 6.70, 'Super AMOLED', 120, 5000, 50.00, 12.00, 1, 1, 1, 'IP64'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy A27'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Studying'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy A27'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Photography'
+    ),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy A27'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Gaming'
+    ),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy A27'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Business'
+    ),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy A27'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Everyday Use'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy A27'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Long Battery Life'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+);
+
+
+/* =========================================================
+   SAMSUNG GALAXY A04E
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'Samsung'
+    ),
+    'Samsung Galaxy A04e', 'Android', 2022, 'An affordable everyday smartphone with a large display, dependable battery life, expandable storage and essential features.',
+    'https://i5.walmartimages.com.mx/mg/gm/3pp/asr/f9702030-0412-481e-943a-cef6ee21d466.8be687015beb26442ba5c8a149717f97.png?odnHeight=2000&odnWidth=2000&odnBg=ffffff'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy A04e'
+    ),
+    3, 32, 'Light Blue', 1999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy A04e'
+    ),
+    'MediaTek Helio P35', 6.50, 'PLS LCD', 60, 5000, 13.00, 5.00, 0, 1, 1, 'None'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy A04e'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Studying'
+    ),
+    7, 'This smartphone is well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy A04e'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Photography'
+    ),
+    5, 'This smartphone is moderately suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy A04e'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Gaming'
+    ),
+    5, 'This smartphone is moderately suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy A04e'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Business'
+    ),
+    6, 'This smartphone is reasonably suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy A04e'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Everyday Use'
+    ),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy A04e'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Long Battery Life'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+);
+
+
+/* =========================================================
+   SAMSUNG GALAXY Z TRIFOLD
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'Samsung'
+    ),
+    'Samsung Galaxy Z TriFold', 'Android', 2025, 'A premium tri-folding smartphone with an expansive AMOLED display, flagship performance, advanced cameras and powerful productivity features.',
+    'https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-z-trifold-10.jpg'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy Z TriFold'
+    ),
+    16, 512, 'Crafted Black', 54999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy Z TriFold'
+    ),
+    'Qualcomm Snapdragon 8 Elite', 10.00, 'Tri-foldable Dynamic LTPO AMOLED 2X', 120, 5600, 200.00, 10.00, 1, 1, 0, 'IP48'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy Z TriFold'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Studying'
+    ),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy Z TriFold'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Photography'
+    ),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy Z TriFold'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Gaming'
+    ),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy Z TriFold'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Business'
+    ),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy Z TriFold'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Everyday Use'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy Z TriFold'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Long Battery Life'
+    ),
+    8, 'This smartphone is very well suited to this purpose.'
+);
+
+
+/* =========================================================
+   HUAWEI ENJOY 90
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'Huawei'
+    ),
+    'Huawei Enjoy 90', 'HarmonyOS', 2026, 'A practical smartphone with a smooth display, large battery, capable main camera and durable splash-resistant construction.',
+    'https://cdn.beebom.com/mobile/huawei-enjoy-90-plus-front-back.png'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Enjoy 90'
+    ),
+    8, 128, 'Black', 4999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Enjoy 90'
+    ),
+    'Kirin 8000A', 6.67, 'IPS LCD', 120, 6620, 50.00, 8.00, 1, 1, 0, 'IP64'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Enjoy 90'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Studying'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Enjoy 90'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Photography'
+    ),
+    7, 'This smartphone is well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Enjoy 90'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Gaming'
+    ),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Enjoy 90'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Business'
+    ),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Enjoy 90'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Everyday Use'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Enjoy 90'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Long Battery Life'
+    ),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+);
+
+
+/* =========================================================
+   HUAWEI NOVA Y72
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'Huawei'
+    ),
+    'Huawei nova Y72', 'Android', 2024, 'An affordable everyday smartphone with a large battery, spacious display, capable main camera and dependable daily performance.',
+    'https://cellucity.co.za/wp-content/uploads/2024/02/Huawei-nova-Y72-%E2%80%93-Green.jpg'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei nova Y72'
+    ),
+    8, 128, 'Black', 3999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei nova Y72'
+    ),
+    'Kirin 710A', 6.75, 'TFT LCD', 90, 6000, 50.00, 8.00, 0, 1, 0, 'None'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei nova Y72'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Studying'
+    ),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei nova Y72'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Photography'
+    ),
+    7, 'This smartphone is well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei nova Y72'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Gaming'
+    ),
+    6, 'This smartphone is reasonably suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei nova Y72'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Business'
+    ),
+    7, 'This smartphone is well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei nova Y72'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Everyday Use'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei nova Y72'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Long Battery Life'
+    ),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+);
+
+USE PhoneFitDB;
+GO
+
+/* =========================================================
+   HUAWEI MATE 80 PRO MAX
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'Huawei'
+    ),
+    'Huawei Mate 80 Pro Max', 'HarmonyOS', 2025, 'A premium flagship smartphone with a large LTPO OLED display, powerful performance, advanced quad-camera system and fast charging.',
+    'https://cdn.beebom.com/mobile/huawei-mate-80-pro-max-front-back-1.png'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Mate 80 Pro Max'
+    ),
+    16, 512, 'Black', 23999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Mate 80 Pro Max'
+    ),
+    'Kirin 9030 Pro', 6.90, 'LTPO OLED', 120, 6000, 50.00, 13.00, 1, 1, 0, 'IP68/IP69'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Mate 80 Pro Max'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Studying'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Mate 80 Pro Max'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Photography'
+    ),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Mate 80 Pro Max'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Gaming'
+    ),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Mate 80 Pro Max'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Business'
+    ),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Mate 80 Pro Max'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Everyday Use'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Mate 80 Pro Max'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Long Battery Life'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+);
+
+
+/* =========================================================
+   HUAWEI MATE 80 PRO
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'Huawei'
+    ),
+    'Huawei Mate 80 Pro', 'HarmonyOS', 2025, 'A premium smartphone with a high-resolution LTPO OLED display, flagship performance, versatile cameras and fast wired and wireless charging.',
+    'https://www.mobiledokan.com/media/huawei-mate-80-pro-max-gold-official-image.webp'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Mate 80 Pro'
+    ),
+    12, 256, 'Black', 19999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Mate 80 Pro'
+    ),
+    'Kirin 9030 Pro', 6.75, 'LTPO OLED', 120, 5750, 50.00, 13.00, 1, 1, 0, 'IP68/IP69'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Mate 80 Pro'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Studying'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Mate 80 Pro'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Photography'
+    ),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Mate 80 Pro'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Gaming'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Mate 80 Pro'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Business'
+    ),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Mate 80 Pro'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Everyday Use'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Huawei Mate 80 Pro'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Long Battery Life'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+);
+
+
+/* =========================================================
+   APPLE IPHONE 14
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'Apple'
+    ),
+    'iPhone 14', 'iOS', 2022, 'A premium smartphone with a bright OLED display, powerful processor, dependable dual-camera system and long-term software support.',
+    'https://s13emagst.akamaized.net/products/48592/48591192/images/res_749904e2b5777dea6eb322cfb68742a1.jpg'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'iPhone 14'
+    ),
+    6, 128, 'Midnight', 11999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'iPhone 14'
+    ),
+    'Apple A15 Bionic', 6.10, 'Super Retina XDR OLED', 60, 3279, 12.00, 12.00, 1, 1, 0, 'IP68'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'iPhone 14'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Studying'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'iPhone 14'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Photography'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'iPhone 14'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Gaming'
+    ),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'iPhone 14'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Business'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'iPhone 14'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Everyday Use'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'iPhone 14'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Long Battery Life'
+    ),
+    7, 'This smartphone is well suited to this purpose.'
+);
+
+
+/* =========================================================
+   HONOR MAGIC8 PRO AIR
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'HONOR'
+    ),
+    'HONOR Magic8 Pro Air', 'Android', 2026, 'A thin premium smartphone with a bright LTPO OLED display, flagship performance, advanced cameras and fast wired and wireless charging.',
+    'https://infogadgetpro.com/wp-content/uploads/2026/01/Honor-Magic-8-Pro-Air.png'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR Magic8 Pro Air'
+    ),
+    12, 256, 'Black', 17999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR Magic8 Pro Air'
+    ),
+    'MediaTek Dimensity 9500', 6.31, 'LTPO OLED', 120, 5500, 50.00, 50.00, 1, 1, 0, 'IP68/IP69'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR Magic8 Pro Air'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Studying'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR Magic8 Pro Air'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Photography'
+    ),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR Magic8 Pro Air'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Gaming'
+    ),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR Magic8 Pro Air'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Business'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR Magic8 Pro Air'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Everyday Use'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR Magic8 Pro Air'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Long Battery Life'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+);
+
+
+/* =========================================================
+   HONOR X70 PRO MAX
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'HONOR'
+    ),
+    'HONOR X70 Pro Max', 'Android', 2026, 'A large-screen smartphone with an AMOLED display, exceptionally large battery, capable main camera and strong everyday performance.',
+    'https://tse4.mm.bing.net/th/id/OIP.m4U0nNAtuIuPE8v0Tbk_egAAAA?r=0&rs=1&pid=ImgDetMain&o=7&rm=3'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR X70 Pro Max'
+    ),
+    8, 256, 'Black', 8999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR X70 Pro Max'
+    ),
+    'Qualcomm Snapdragon 7 Gen 4', 6.79, 'AMOLED', 120, 8560, 50.00, 8.00, 1, 1, 0, 'IP68/IP69'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR X70 Pro Max'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Studying'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR X70 Pro Max'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Photography'
+    ),
+    7, 'This smartphone is well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR X70 Pro Max'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Gaming'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR X70 Pro Max'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Business'
+    ),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR X70 Pro Max'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Everyday Use'
+    ),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR X70 Pro Max'
+    ),
+    (SELECT UseCategoryID
+     FROM UseCategory
+     WHERE CategoryName = 'Long Battery Life'
+    ),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+);
+
+USE PhoneFitDB;
+GO
+
+/* =========================================================
+   HONOR MAGIC6 ULTIMATE
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'HONOR'
+    ),
+    'HONOR Magic6 Ultimate', 'Android', 2024, 'A premium flagship smartphone with a bright LTPO OLED display, powerful performance, advanced cameras and fast charging.',
+    'https://cdn.beebom.com/mobile/honor-magic6-ultimate-front-and-back1.png'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR Magic6 Ultimate'
+    ),
+    16, 512, 'Black', 21999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'HONOR Magic6 Ultimate'
+    ),
+    'Qualcomm Snapdragon 8 Gen 3', 6.80, 'LTPO OLED', 120, 5600, 50.00, 50.00, 1, 1, 0, 'IP68'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'HONOR Magic6 Ultimate'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Studying'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'HONOR Magic6 Ultimate'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Photography'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'HONOR Magic6 Ultimate'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Gaming'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'HONOR Magic6 Ultimate'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Business'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'HONOR Magic6 Ultimate'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Everyday Use'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'HONOR Magic6 Ultimate'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Long Battery Life'),
+    9, 'This smartphone is highly suited to this purpose.'
+);
+
+
+/* =========================================================
+   XIAOMI POCO C85X
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'Xiaomi'
+    ),
+    'Xiaomi Poco C85x', 'Android', 2026, 'An affordable 5G smartphone with a large smooth display, expandable storage, dependable cameras and a large battery.',
+    'https://tse1.mm.bing.net/th/id/OIP.Rcb-__oQqE_Tq5QQqCWZCQAAAA?r=0&rs=1&pid=ImgDetMain&o=7&rm=3'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Xiaomi Poco C85x'
+    ),
+    4, 64, 'Black', 2499.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Xiaomi Poco C85x'
+    ),
+    'Unisoc T8300', 6.90, 'IPS LCD', 120, 6300, 32.00, 8.00, 1, 1, 1, 'Splash Resistant'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Xiaomi Poco C85x'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Studying'),
+    7, 'This smartphone is well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Xiaomi Poco C85x'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Photography'),
+    6, 'This smartphone is suitable for ordinary use for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Xiaomi Poco C85x'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Gaming'),
+    6, 'This smartphone is suitable for ordinary use for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Xiaomi Poco C85x'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Business'),
+    6, 'This smartphone is suitable for ordinary use for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Xiaomi Poco C85x'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Everyday Use'),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Xiaomi Poco C85x'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Long Battery Life'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+);
+
+
+/* =========================================================
+   XIAOMI REDMI TURBO 5 MAX
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'Xiaomi'
+    ),
+    'Xiaomi Redmi Turbo 5 Max', 'Android', 2026, 'A performance-focused smartphone with a bright AMOLED display, flagship-class processor, exceptionally large battery and fast charging.',
+    'https://tse4.mm.bing.net/th/id/OIP.NTJI67hBRwbzWw995QcE9wAAAA?r=0&rs=1&pid=ImgDetMain&o=7&rm=3'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Xiaomi Redmi Turbo 5 Max'
+    ),
+    12, 256, 'Black', 9999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Xiaomi Redmi Turbo 5 Max'
+    ),
+    'MediaTek Dimensity 9500s', 6.83, 'AMOLED', 120, 9000, 50.00, 20.00, 1, 1, 0, 'IP68/IP69K'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Xiaomi Redmi Turbo 5 Max'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Studying'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Xiaomi Redmi Turbo 5 Max'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Photography'),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Xiaomi Redmi Turbo 5 Max'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Gaming'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Xiaomi Redmi Turbo 5 Max'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Business'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Xiaomi Redmi Turbo 5 Max'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Everyday Use'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Xiaomi Redmi Turbo 5 Max'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Long Battery Life'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+);
+
+
+/* =========================================================
+   XIAOMI 17T PRO
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'Xiaomi'
+    ),
+    'Xiaomi 17T Pro', 'Android', 2026, 'A premium smartphone with a high-refresh AMOLED display, flagship processor, advanced Leica cameras and fast wired and wireless charging.',
+    'https://m.media-amazon.com/images/I/31zkD--unlL._SL500_.jpg'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Xiaomi 17T Pro'
+    ),
+    12, 512, 'Black', 18999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Xiaomi 17T Pro'
+    ),
+    'MediaTek Dimensity 9500', 6.83, 'AMOLED', 144, 7000, 50.00, 32.00, 1, 1, 0, 'IP68'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Xiaomi 17T Pro'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Studying'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Xiaomi 17T Pro'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Photography'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Xiaomi 17T Pro'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Gaming'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Xiaomi 17T Pro'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Business'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Xiaomi 17T Pro'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Everyday Use'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Xiaomi 17T Pro'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Long Battery Life'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+);
+
+
+/* =========================================================
+   ONEPLUS ACE 7
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'OnePlus'
+    ),
+    'OnePlus Ace 7', 'Android', 2026, 'A performance-focused smartphone with a smooth AMOLED display, high-capacity battery, capable cameras and fast charging.',
+    'https://www.mobilebd.co/wp-content/uploads/2025/09/OnePlus-Ace-7-Racing-Image.png'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'OnePlus Ace 7'
+    ),
+    12, 256, 'Black', 11999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'OnePlus Ace 7'
+    ),
+    'Qualcomm Snapdragon 8 Elite', 6.78, 'AMOLED', 120, 9000, 50.00, 16.00, 1, 1, 0, 'IP65'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OnePlus Ace 7'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Studying'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OnePlus Ace 7'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Photography'),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OnePlus Ace 7'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Gaming'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OnePlus Ace 7'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Business'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OnePlus Ace 7'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Everyday Use'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OnePlus Ace 7'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Long Battery Life'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+);
+
+
+/* =========================================================
+   ONEPLUS ACE 3V
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'OnePlus'
+    ),
+    'OnePlus Ace 3V', 'Android', 2024, 'A powerful mid-range smartphone with a high-resolution AMOLED display, strong gaming performance, large battery and fast charging.',
+    'https://cdn.beebom.com/mobile/2024/03/OnePlus-Ace-3V-1.png'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'OnePlus Ace 3V'
+    ),
+    12, 256, 'Gray', 8999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'OnePlus Ace 3V'
+    ),
+    'Qualcomm Snapdragon 7+ Gen 3', 6.74, 'AMOLED', 120, 5500, 50.00, 16.00, 1, 1, 0, 'IP65'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OnePlus Ace 3V'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Studying'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OnePlus Ace 3V'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Photography'),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OnePlus Ace 3V'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Gaming'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OnePlus Ace 3V'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Business'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OnePlus Ace 3V'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Everyday Use'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OnePlus Ace 3V'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Long Battery Life'),
+    9, 'This smartphone is highly suited to this purpose.'
+);
+
+
+/* =========================================================
+   ONEPLUS NORD CE 2 LITE 5G
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'OnePlus'
+    ),
+    'OnePlus Nord CE 2 Lite 5G', 'Android', 2022, 'An affordable 5G smartphone with a smooth display, expandable storage, dependable cameras and a long-lasting battery.',
+    'https://oasis.opstatics.com/content/dam/oasis/page/2022/operation/apr/in/Nord-ce2-lite-Blue.png'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'OnePlus Nord CE 2 Lite 5G'
+    ),
+    6, 128, 'Blue Tide', 4999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'OnePlus Nord CE 2 Lite 5G'
+    ),
+    'Qualcomm Snapdragon 695 5G', 6.59, 'IPS LCD', 120, 5000, 64.00, 16.00, 1, 1, 1, 'None'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OnePlus Nord CE 2 Lite 5G'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Studying'),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OnePlus Nord CE 2 Lite 5G'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Photography'),
+    7, 'This smartphone is well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OnePlus Nord CE 2 Lite 5G'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Gaming'),
+    7, 'This smartphone is well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OnePlus Nord CE 2 Lite 5G'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Business'),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OnePlus Nord CE 2 Lite 5G'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Everyday Use'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OnePlus Nord CE 2 Lite 5G'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Long Battery Life'),
+    9, 'This smartphone is highly suited to this purpose.'
+);
+
+
+/* =========================================================
+   SONY XPERIA 1 VIII
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'Sony'
+    ),
+    'Sony Xperia 1 VIII', 'Android', 2026, 'A premium multimedia smartphone with a high-quality OLED display, flagship performance, professional camera controls and expandable storage.',
+    'https://www.mobiledokan.co/wp-content/uploads/2024/06/Sony-Xperia-1-VII-Moss-Green.webp'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Sony Xperia 1 VIII'
+    ),
+    12, 256, 'Black', 24999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Sony Xperia 1 VIII'
+    ),
+    'Qualcomm Snapdragon 8 Elite Gen 5', 6.50, 'LTPO OLED', 120, 5000, 48.00, 12.00, 1, 1, 1, 'IP65/IP68'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Sony Xperia 1 VIII'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Studying'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Sony Xperia 1 VIII'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Photography'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Sony Xperia 1 VIII'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Gaming'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Sony Xperia 1 VIII'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Business'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Sony Xperia 1 VIII'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Everyday Use'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Sony Xperia 1 VIII'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Long Battery Life'),
+    8, 'This smartphone is very well suited to this purpose.'
+);
+
+
+/* =========================================================
+   OPPO RENO15 PRO MAX
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'OPPO'
+    ),
+    'OPPO Reno15 Pro Max', 'Android', 2026, 'A premium camera-focused smartphone with a bright AMOLED display, powerful performance, large battery and advanced high-resolution cameras.',
+    'https://img.pchome.com.tw/cs/items/DYAV56A900JMLJ2/l000002_1782789026.jpg'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'OPPO Reno15 Pro Max'
+    ),
+    12, 256, 'Aurora Gold', 18999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'OPPO Reno15 Pro Max'
+    ),
+    'MediaTek Dimensity 9400', 6.78, 'AMOLED', 120, 6500, 200.00, 50.00, 1, 1, 0, 'IP68/IP69'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OPPO Reno15 Pro Max'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Studying'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OPPO Reno15 Pro Max'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Photography'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OPPO Reno15 Pro Max'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Gaming'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OPPO Reno15 Pro Max'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Business'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OPPO Reno15 Pro Max'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Everyday Use'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OPPO Reno15 Pro Max'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Long Battery Life'),
+    9, 'This smartphone is highly suited to this purpose.'
+);
+
+
+/* =========================================================
+   OPPO A1 5G
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'OPPO'
+    ),
+    'OPPO A1 5G', 'Android', 2023, 'A practical 5G smartphone with a large display, spacious storage, dependable cameras and reliable everyday performance.',
+    'https://tse1.mm.bing.net/th/id/OIP.PeQQRFgpLocid28TeqlN2wHaGV?r=0&rs=1&pid=ImgDetMain&o=7&rm=3'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'OPPO A1 5G'
+    ),
+    8, 256, 'Ocean Blue', 5999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'OPPO A1 5G'
+    ),
+    'Qualcomm Snapdragon 695 5G', 6.72, 'IPS LCD', 120, 5000, 50.00, 8.00, 1, 1, 1, 'None'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OPPO A1 5G'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Studying'),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OPPO A1 5G'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Photography'),
+    7, 'This smartphone is well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OPPO A1 5G'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Gaming'),
+    7, 'This smartphone is well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OPPO A1 5G'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Business'),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OPPO A1 5G'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Everyday Use'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'OPPO A1 5G'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Long Battery Life'),
+    9, 'This smartphone is highly suited to this purpose.'
+);
+
+
+/* =========================================================
+   REALME NOTE 80
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'Realme'
+    ),
+    'Realme Note 80', 'Android', 2026, 'An affordable everyday smartphone with a large display, expandable storage, durable construction and a long-lasting battery.',
+    'https://tse2.mm.bing.net/th/id/OIP.89Ya29ryCU0NEnFanlxFUQHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Realme Note 80'
+    ),
+    4, 64, 'Storm Black', 2299.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Realme Note 80'
+    ),
+    'Unisoc T7250', 6.74, 'IPS LCD', 90, 6300, 8.00, 5.00, 0, 1, 1, 'IP54'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Realme Note 80'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Studying'),
+    7, 'This smartphone is well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Realme Note 80'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Photography'),
+    4, 'This smartphone can support this purpose but has important limitations.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Realme Note 80'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Gaming'),
+    5, 'This smartphone provides an average experience for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Realme Note 80'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Business'),
+    6, 'This smartphone is suitable for ordinary use for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Realme Note 80'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Everyday Use'),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Realme Note 80'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Long Battery Life'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+);
+
+
+/* =========================================================
+   REALME NARZO 80 LITE 5G
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'Realme'
+    ),
+    'Realme Narzo 80 Lite 5G', 'Android', 2025, 'An affordable 5G smartphone with a smooth display, expandable storage, durable construction and a large battery.',
+    'https://image01.realme.net/general/20250214/1739510843931623c453ab8c245c9aa01a5047bb77030.png?width=1440&height=1440&size=543248'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Realme Narzo 80 Lite 5G'
+    ),
+    4, 64, 'Crystal Purple', 2999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Realme Narzo 80 Lite 5G'
+    ),
+    'MediaTek Dimensity 6300', 6.67, 'IPS LCD', 120, 6000, 32.00, 8.00, 1, 1, 1, 'IP64'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Realme Narzo 80 Lite 5G'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Studying'),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Realme Narzo 80 Lite 5G'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Photography'),
+    6, 'This smartphone is suitable for ordinary use for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Realme Narzo 80 Lite 5G'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Gaming'),
+    7, 'This smartphone is well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Realme Narzo 80 Lite 5G'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Business'),
+    7, 'This smartphone is well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Realme Narzo 80 Lite 5G'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Everyday Use'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Realme Narzo 80 Lite 5G'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Long Battery Life'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+);
+
+
+/* =========================================================
+   TECNO CAMON 50 PRO
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'Tecno'
+    ),
+    'Tecno Camon 50 Pro', 'Android', 2026, 'A camera-focused smartphone with a high-refresh AMOLED display, large battery, versatile rear cameras and generous storage.',
+    'https://cdn.beebom.com/mobile/tecno-camon-50-pro-front-back-3.png'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Tecno Camon 50 Pro'
+    ),
+    8, 256, 'Malachite Green', 8999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Tecno Camon 50 Pro'
+    ),
+    'MediaTek Dimensity 7400 Ultimate', 6.78, 'AMOLED', 144, 6500, 50.00, 50.00, 1, 1, 0, 'IP68'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Tecno Camon 50 Pro'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Studying'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Tecno Camon 50 Pro'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Photography'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Tecno Camon 50 Pro'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Gaming'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Tecno Camon 50 Pro'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Business'),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Tecno Camon 50 Pro'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Everyday Use'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Tecno Camon 50 Pro'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Long Battery Life'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+);
+
+
+/* =========================================================
+   TECNO SPARK 50
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'Tecno'
+    ),
+    'Tecno Spark 50', 'Android', 2026, 'An affordable everyday smartphone with a large smooth display, expandable storage, capable main camera and excellent battery capacity.',
+    'https://www.mobilebd.co/wp-content/uploads/2025/09/Tecno-Spark-50-Ink-Black-Image.png'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Tecno Spark 50'
+    ),
+    4, 128, 'Titanium Gray', 3499.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Tecno Spark 50'
+    ),
+    'MediaTek Helio G81', 6.78, 'IPS LCD', 120, 7000, 50.00, 8.00, 0, 1, 1, 'IP64'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Tecno Spark 50'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Studying'),
+    8, 'This smartphone is very well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Tecno Spark 50'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Photography'),
+    7, 'This smartphone is well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Tecno Spark 50'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Gaming'),
+    6, 'This smartphone is suitable for ordinary use for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Tecno Spark 50'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Business'),
+    7, 'This smartphone is well suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Tecno Spark 50'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Everyday Use'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Tecno Spark 50'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Long Battery Life'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+);
+
+
+/* =========================================================
+   SAMSUNG GALAXY S26 ULTRA
+   ========================================================= */
+
+INSERT INTO PhoneModel(BrandID, ModelName, OperatingSystem, ReleaseYear, [Description], ImagePath)
+VALUES
+(
+    (SELECT BrandID
+     FROM Brand
+     WHERE BrandName = 'Samsung'
+    ),
+    'Samsung Galaxy S26 Ultra', 'Android', 2026, 'A premium flagship smartphone with a high-resolution AMOLED display, exceptional performance, advanced cameras and professional productivity features.',
+    'https://kotaku.com/app/uploads/2026/03/samsung-galaxy-s26-s26-ultra.jpg'
+);
+
+INSERT INTO PhoneVariant(PhoneModelID, RAMGB, StorageGB, Colour, Price, StockQuantity, LowStockLevel)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy S26 Ultra'
+    ),
+    12, 256, 'Black', 28999.00, 10, 5
+);
+
+INSERT INTO PhoneSpecification(PhoneModelID, Processor, ScreenSize, ScreenType, RefreshRate, BatteryCapacity, RearCameraMP, FrontCameraMP, Supports5G, DualSIM, ExpandableStorage, WaterResistance)
+VALUES
+(
+    (SELECT PhoneModelID
+     FROM PhoneModel
+     WHERE ModelName = 'Samsung Galaxy S26 Ultra'
+    ),
+    'Qualcomm Snapdragon 8 Elite Gen 5', 6.90, 'Dynamic LTPO AMOLED 2X', 120, 5000, 200.00, 12.00, 1, 1, 0, 'IP68'
+);
+
+INSERT INTO PhoneSuitability(PhoneModelID, UseCategoryID, SuitabilityScore, Explanation)
+VALUES
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Samsung Galaxy S26 Ultra'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Studying'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Samsung Galaxy S26 Ultra'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Photography'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Samsung Galaxy S26 Ultra'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Gaming'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Samsung Galaxy S26 Ultra'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Business'),
+    10, 'This smartphone is one of the strongest options for this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Samsung Galaxy S26 Ultra'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Everyday Use'),
+    9, 'This smartphone is highly suited to this purpose.'
+),
+(
+    (SELECT PhoneModelID FROM PhoneModel WHERE ModelName = 'Samsung Galaxy S26 Ultra'),
+    (SELECT UseCategoryID FROM UseCategory WHERE CategoryName = 'Long Battery Life'),
+    8, 'This smartphone is very well suited to this purpose.'
+);
+
+USE PhoneFitDB;
+GO
+
+INSERT INTO UserAccount
+(
+    RoleID,
+    UserEmail,
+    UserPasswordHash,
+    UserFirstName,
+    UserSurname,
+    UserPhoneNumber,
+    UserIsActive,
+    UserAccountCreated
+)
+VALUES
+(
+    (SELECT RoleID
+     FROM [Role]
+     WHERE RoleName = 'Manager'),
+
+    'managerkal@gmail.com',
+    'B65CB28B7C2569D90631CEF9C8A8C29E',
+    'Kal',
+    'Wardin',
+    '0512368856',
+    1,
+    '2026-09-17T11:16:09.753'
+),
+(
+    (SELECT RoleID
+     FROM [Role]
+     WHERE RoleName = 'Customer'),
+
+    'j@gmail.com',
+    '363B122C528F54DF4A0446B6BAB05515',
+    'j',
+    'j',
+    '1',
+    1,
+    '2026-09-17T22:31:30.653'
+);
+GO

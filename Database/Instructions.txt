@@ -1,0 +1,9 @@
+PHONEFIT TEST ACCOUNTS
+
+MANAGER
+Email: managerkal@gmail.com
+Password: kal
+
+CUSTOMER
+Email: j@gmail.com
+Password: j
